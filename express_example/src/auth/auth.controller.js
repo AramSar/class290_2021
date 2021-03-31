@@ -9,4 +9,10 @@ router.post('/login', asyncHandler(async (req, res) => {
     res.json({ token });
 }))
 
+router.patch('/unlock-user/:id', asyncHandler(async (req, res) => {
+    const { id } = req.params
+    await auth.unlock(req.user, id)
+    return res.status(200).send('User has successfully been unlocked!')
+}))
+
 module.exports = router;

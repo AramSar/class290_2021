@@ -1,7 +1,8 @@
 const User = require('../users/user.entity');
-const { Unauthorized, Locked } = require('http-errors')
+const { Unauthorized, Locked, Forbidden } = require('http-errors')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { ADMIN_ROLE } = require('../commons/util');
 
 class AuthService {
     async validate(username, password) {
@@ -41,6 +42,16 @@ class AuthService {
         })
 
         return { userId: obj.userId, username: obj.username };
+    }
+
+    async unlock(user, id){
+        if(user.role !== ADMIN_ROLE){
+            throw Forbidden('Not authorized!') 
+        }
+
+        const locked_user = await User.findById(id)
+        locked_user.isLocked = false
+        locked_user.save()
     }
 }
 
