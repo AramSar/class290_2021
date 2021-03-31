@@ -18,7 +18,7 @@ class AuthService {
             }
             user.save()
 
-            throw new Unauthorized();
+            throw new Locked("The user is locked!");
         }
 
         user.loginAttempts = 0
