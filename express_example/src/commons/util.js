@@ -2,6 +2,7 @@ const fs = require('fs');
 
 const ADMIN_ROLE = 'admin'
 const CUSTOMER_ROLE = 'customer'
+const PUBLIC_PATHS =    ['POST /users', 'POST /auth/login']
 
 module.exports = {
     writeInFile(content) {
@@ -23,6 +24,15 @@ module.exports = {
             });
         });
     },
+
+    isPublicPath(method, path){
+        query = method + " " + path
+        if(PUBLIC_PATHS.includes(query)){
+            return true
+        }
+        return false
+    },
+
     ADMIN_ROLE,
     CUSTOMER_ROLE,
 }
