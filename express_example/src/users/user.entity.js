@@ -34,6 +34,20 @@ const schema = new Schema({
         required: true, // non-nullable
         enum: [CUSTOMER_ROLE, ADMIN_ROLE],
         default: CUSTOMER_ROLE
+    },
+
+    loginAttempts: {
+        type: Number,
+        required: true,
+        default: 0, 
+        min: 0,
+        max: 3
+    },
+
+    isLocked: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 }, { collection: 'users' });
 
