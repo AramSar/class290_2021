@@ -44,13 +44,13 @@ class AuthService {
         return { userId: obj.userId, username: obj.username };
     }
 
-    async unlock(user, id){
+    async lock_switch(user, id, lock=false){
         if(user.role !== ADMIN_ROLE){
             throw Forbidden('Not authorized!') 
         }
 
         const locked_user = await User.findById(id)
-        locked_user.isLocked = false
+        locked_user.isLocked = lock
         locked_user.save()
     }
 }
