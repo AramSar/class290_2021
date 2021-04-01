@@ -12,13 +12,13 @@ router.post('/login', asyncHandler(async (req, res) => {
 router.patch('/unlock-user/:id', asyncHandler(async (req, res) => {
     const { id } = req.params
     await auth.lock_switch(req.user, id)
-    return res.status(200).send('User has successfully been unlocked!')
+    res.status(200).json({message: 'User has successfully been unlocked!'})
 }))
 
 router.patch('/lock-user/:id', asyncHandler(async (req, res) => {
     const { id } = req.params
     await auth.lock_switch(req.user, id, lock=true)
-    return res.status(200).send('User has successfully been locked!')
+    res.status(200).json({message: 'User has successfully been locked!'})
 }))
 
 module.exports = router;
